@@ -59,7 +59,7 @@ namespace ToDoTask.Application.Services
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new Claim(ClaimTypes.Role, user.RoleId.ToString())
                 }),
-                Expires = DateTime.UtcNow.AddDays(45),
+                Expires = DateTime.UtcNow.AddMinutes(45),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 

@@ -2,8 +2,8 @@
 {
     public class ToDoDto
     {
-        public  string Title { get; set; }
-        public  int UserId { get; set; }
-        public bool completed { get; set; }
+        public  string Title { get; init; }
+        public  int UserId { get; init; }
+        public bool completed { get; init; }
     }
 }

@@ -1,7 +1,5 @@
 ﻿
-    using Microsoft.EntityFrameworkCore;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using ToDoTask.Application.Interfaces;
 using ToDoTask.Domain.Entities;
 using ToDoTask.Infrastructure.Context;
@@ -29,6 +27,7 @@ namespace ToDoTask.Infrastructure.Repositories
                     .Where(todo => todo.UserId == userId)
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize)
+                    .AsNoTracking()
                     .ToListAsync();
 
                 return (IEnumerable<T>)query;  
@@ -38,6 +37,7 @@ namespace ToDoTask.Infrastructure.Repositories
                 var query = await _dbSet
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize)
+                    .AsNoTracking()
                     .ToListAsync();
 
                 return (IEnumerable<T>)query;
@@ -48,7 +48,7 @@ namespace ToDoTask.Infrastructure.Repositories
 
         public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return await _dbSet.ToListAsync();
+            return await _dbSet.AsNoTracking().ToListAsync();
         }
 
         public async Task<T> GetByIdAsync(int id)
