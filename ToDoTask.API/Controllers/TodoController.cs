@@ -84,13 +84,14 @@ namespace ToDoTask.API.Controllers
     public async Task<IActionResult> DeleteTodoAsync(int id)
     {
             var userId = Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
-            var ToDo =  await _toDoService.DeleteToDoAsync(id);
+            var ToDo =  await _toDoService.GetToDoByIdAsync(id);
             if (ToDo == null)
                 return NotFound();
             if (ToDo.UserId != userId)
             {
                 return Forbid();
             }
+            await _toDoService.DeleteToDoAsync(id);
 
             return Ok();
     }
